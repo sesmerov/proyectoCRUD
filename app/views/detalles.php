@@ -31,7 +31,7 @@
    </tr>
    <tr>
       <td>ip_address:</td>
-      <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly> <img src="https://flagcdn.com/16x12/<?=obtenerCodPaisPorIP($cli->ip_address)?>.png" alt="Imagen pais"></td>
+      <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly> <img src="https://flagcdn.com/16x12/<?=obtenerCodPaisPorIP($cli->ip_address)?>.png" alt="Bandera pais"></td>
    </tr>
    </tr>
    <tr>
