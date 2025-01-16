@@ -136,7 +136,15 @@ class AccesoDatos {
         }
         return $cli;
     }
-   
+
+    //Función para comprobar si existe un cliente con un email
+    public function existeClienteEmail($email):bool{
+        $stmt_existe_cli   = $this->dbh->prepare("select * from Clientes where email=:email");
+        $stmt_existe_cli->bindParam(':email', $email);
+        $stmt_existe_cli->execute();
+        $resu = ($stmt_existe_cli->rowCount () == 0);
+        return $resu;
+    }
 
     // UPDATE TODO
     public function modCliente($cli):bool{

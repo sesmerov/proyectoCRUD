@@ -32,5 +32,5 @@
     <button type="submit" name="nav-modificar" value="Anterior">Anterior</button>
     <button type="submit" name="nav-modificar" value="Siguiente">Siguiente</button>
  </form>
- <p><?= $msg ?? ""?></p>
 <?php } ?>
+<p><?= $msg ?? ""?></p>

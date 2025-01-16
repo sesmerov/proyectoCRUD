@@ -1,6 +1,6 @@
 - ✔️ Mostrar e implementar en detalles y en modificar la opción de siguiente y anterior
 
-- Mejorar las operaciones de Nuevo y Modificar para que chequee que los datos son correctos:  correo electrónico (no repetido), IP correcta y  teléfono con formato 999-999-9999.
+- ✔️ Mejorar las operaciones de Nuevo y Modificar para que chequee que los datos son correctos:  correo electrónico (no repetido), IP correcta y  teléfono con formato 999-999-9999.
 
 - Mostrar una imagen asociada al cliente almacenada previamente en uploads o una imagen por defecto aleatoria generada por https://robohash.org.  sin no existe. En nombre de las fotos tiene el formato 00000XXX.jpg para el cliente con id XXX.
 

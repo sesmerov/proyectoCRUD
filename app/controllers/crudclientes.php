@@ -81,7 +81,7 @@ function crudModificarAnterior($id){
 
 function crudPostAlta(){
     limpiarArrayEntrada($_POST); //Evito la posible inyección de código
-    // !!!!!! No se controlan que los datos sean correctos 
+    
     $cli = new Cliente();
     $cli->id            =$_POST['id'];
     $cli->first_name    =$_POST['first_name'];
@@ -90,12 +90,19 @@ function crudPostAlta(){
     $cli->gender        =$_POST['gender'];
     $cli->ip_address    =$_POST['ip_address'];
     $cli->telefono      =$_POST['telefono'];
-    $db = AccesoDatos::getModelo();
+
+    if(!validarTodosLosCampos($cli)){
+        $msg = " Revise email, ip y teléfono ";
+        $orden="Nuevo";
+        include_once "app/views/formulario.php";
+    }else{
+        $db = AccesoDatos::getModelo();
     if ( $db->addCliente($cli) ) {
            $_SESSION['msg'] = " El usuario ".$cli->first_name." se ha dado de alta ";
         } else {
             $_SESSION['msg'] = " Error al dar de alta al usuario ".$cli->first_name."."; 
         }
+    }
 }
 
 function crudPostModificar(){
@@ -109,25 +116,63 @@ function crudPostModificar(){
     $cli->gender        =$_POST['gender'];
     $cli->ip_address    =$_POST['ip_address'];
     $cli->telefono      =$_POST['telefono'];
-    $db = AccesoDatos::getModelo();
-    if ( $db->modCliente($cli) ){
-        $_SESSION['msg'] = " El usuario ha sido modificado";
-    } else {
-        $_SESSION['msg'] = " Error al modificar el usuario ";
+
+    if(!validarTodosLosCampos($cli)){
+        $msg = " Revise email, ip y teléfono ";
+        $orden="Modificar";
+        include_once "app/views/formulario.php";
+    }else{
+        $db = AccesoDatos::getModelo();
+        if ( $db->modCliente($cli) ){
+            $_SESSION['msg'] = " El usuario ha sido modificado";
+        } else {
+            $_SESSION['msg'] = " Error al modificar el usuario ";
+        }
     }
-    
 }
 
+// (5) Función para obtener el código de país a partir de una dirección IP
 function obtenerCodPaisPorIP($ip)
 {
     $url = "http://ip-api.com/json/$ip?fields=status,countryCode"; // Endpoint 
-    $response = file_get_contents($url); 
-    $data = json_decode($response, true); // Decodifica la respuesta JSON a un array asociativo
+    $json = file_get_contents($url); 
+    $arrayJson = json_decode($json, true); // Decodifica la respuesta JSON a un array asociativo
 
-    // Verifica si la solicitud fue exitosa
-    if ($data && $data['status'] == 'success') {
-        return strtolower($data['countryCode']); 
+    if ($arrayJson && $arrayJson['status'] == 'success') {
+        return strtolower($arrayJson['countryCode']); 
     } else {
         return null; 
     }
+}
+
+
+// (2) Funciones para chequear correos electrónicos, IPs y teléfonos
+function comprobarEmail($email){
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Compruebo que el formato del email es correcto
+        return false;
+    }
+    $db = AccesoDatos::getModelo();
+    return $db->existeClienteEmail($email); //Compruebo que no existe otro cliente con el mismo email
+
+}
+
+
+function comprobarIP($ip)
+{
+    if (filter_var($ip, FILTER_VALIDATE_IP)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function comprobarTelefono($telefono)
+{
+    return (preg_match("/^\d{3}-\d{3}-\d{4}$/", $telefono)); 
+}
+
+function validarTodosLosCampos($cli)
+{
+    return comprobarEmail($cli->email) && comprobarIP($cli->ip_address) && comprobarTelefono($cli->telefono);
 }
