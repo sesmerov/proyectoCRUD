@@ -132,17 +132,13 @@ function crudPostModificar(){
 }
 
 // (5) Función para obtener el código de país a partir de una dirección IP
-function obtenerCodPaisPorIP($ip)
+function obtenerDatosPaisPorIP($ip)
 {
-    $url = "http://ip-api.com/json/$ip?fields=status,countryCode"; // Endpoint 
+    $url = "http://ip-api.com/json/$ip"; // Endpoint 
     $json = file_get_contents($url); 
     $decodedJSON = json_decode($json, true); // Decodifica la respuesta JSON a un array asociativo
 
-    if ($decodedJSON && $decodedJSON['status'] == 'success') {
-        return strtolower($decodedJSON['countryCode']); 
-    } else {
-        return null; 
-    }
+    return $decodedJSON;
 }
 
 
