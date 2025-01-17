@@ -138,9 +138,10 @@ class AccesoDatos {
     }
 
     //Función para comprobar si existe un cliente con un email
-    public function existeClienteEmail($email):bool{
-        $stmt_existe_cli   = $this->dbh->prepare("select * from Clientes where email=:email");
+    public function existeClienteEmail($email,$id):bool{
+        $stmt_existe_cli   = $this->dbh->prepare("select * from Clientes where email=:email and id!=:id");
         $stmt_existe_cli->bindParam(':email', $email);
+        $stmt_existe_cli->bindParam(':id', $id);
         $stmt_existe_cli->execute();
         $resu = ($stmt_existe_cli->rowCount () == 0);
         return $resu;
@@ -196,8 +197,8 @@ class AccesoDatos {
         return $resu;
         
     }   
-    
-    
+
+
      // Evito que se pueda clonar el objeto. (SINGLETON)
     public function __clone()
     { 

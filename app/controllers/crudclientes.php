@@ -136,10 +136,10 @@ function obtenerCodPaisPorIP($ip)
 {
     $url = "http://ip-api.com/json/$ip?fields=status,countryCode"; // Endpoint 
     $json = file_get_contents($url); 
-    $arrayJson = json_decode($json, true); // Decodifica la respuesta JSON a un array asociativo
+    $decodedJSON = json_decode($json, true); // Decodifica la respuesta JSON a un array asociativo
 
-    if ($arrayJson && $arrayJson['status'] == 'success') {
-        return strtolower($arrayJson['countryCode']); 
+    if ($decodedJSON && $decodedJSON['status'] == 'success') {
+        return strtolower($decodedJSON['countryCode']); 
     } else {
         return null; 
     }
@@ -147,13 +147,13 @@ function obtenerCodPaisPorIP($ip)
 
 
 // (2) Funciones para chequear correos electrónicos, IPs y teléfonos
-function comprobarEmail($email){
+function comprobarEmail($email,$id){
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Compruebo que el formato del email es correcto
         return false;
     }
     $db = AccesoDatos::getModelo();
-    return $db->existeClienteEmail($email); //Compruebo que no existe otro cliente con el mismo email
+    return $db->existeClienteEmail($email,$id); //Compruebo que no existe otro cliente con el mismo email
 
 }
 
@@ -174,5 +174,5 @@ function comprobarTelefono($telefono)
 
 function validarTodosLosCampos($cli)
 {
-    return comprobarEmail($cli->email) && comprobarIP($cli->ip_address) && comprobarTelefono($cli->telefono);
+    return comprobarEmail($cli->email,id: $cli->id) && comprobarIP($cli->ip_address) && comprobarTelefono($cli->telefono);
 }
