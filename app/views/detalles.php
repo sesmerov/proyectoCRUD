@@ -1,8 +1,13 @@
    <hr>
    <button onclick="location.href='./'"> Volver </button>
    <br><br>
+
+   <?php if ($imagenCliente) : ?>
+      <img id="perfil" src="<?= $imagenCliente?>" alt="Foto de <?=$cli->first_name." ".$cli->last_name?>" />
+   <?php else : ?>
+      <img id="perfil" src="https://robohash.org/<?=$cli->id?>" alt="Imagen aleatoria" />
+   <?php endif; ?>
    <table>
-      <tr>
          <td>id:</td>
          <td><input type="number" name="id" value="<?= $cli->id ?>" readonly> </td>
          <td rowspan="7">

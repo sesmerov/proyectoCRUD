@@ -8,12 +8,19 @@
     <script type="text/javascript" src="web/js/funciones.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-      #map {
-         height: 400px;
-         width: 100%;
-         margin-top: 20px;
-      }
-   </style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #perfil {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>

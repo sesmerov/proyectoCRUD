@@ -1,6 +1,4 @@
 <?php
-
-
 function crudBorrar($id)
 {
     $db = AccesoDatos::getModelo();
@@ -40,6 +38,8 @@ function crudDetalles($id)
     $zoomMapa = $datosPaisProcesados['zoomMapa'];
     $mensajeMapa = $datosPaisProcesados['mensajeMapa'];
 
+    $imagenCliente = recuperarImagenCliente($cli->id);
+
     include_once "app/views/detalles.php";
 }
 
@@ -60,6 +60,8 @@ function crudDetallesSiguiente($id)
     $longitudPais = $datosPaisProcesados['longitud'];
     $zoomMapa = $datosPaisProcesados['zoomMapa'];
     $mensajeMapa = $datosPaisProcesados['mensajeMapa'];
+
+    $imagenCliente = recuperarImagenCliente($cli->id);
 
     include_once "app/views/detalles.php";
 }
@@ -82,15 +84,18 @@ function crudDetallesAnterior($id)
     $zoomMapa = $datosPaisProcesados['zoomMapa'];
     $mensajeMapa = $datosPaisProcesados['mensajeMapa'];
 
+    $imagenCliente = recuperarImagenCliente($cli->id);
+
     include_once "app/views/detalles.php";
 }
-
 
 function crudModificar($id)
 {
     $db = AccesoDatos::getModelo();
     $cli = $db->getCliente($id);
     $orden = "Modificar";
+    $imagenCliente = recuperarImagenCliente($cli->id);
+
     include_once "app/views/formulario.php";
 }
 
@@ -103,6 +108,8 @@ function crudModificarSiguiente($id)
         $msg = "No hay mas clientes disponibles";
         $cli = $db->getUltimoCliente();
     }
+    $imagenCliente = recuperarImagenCliente($cli->id);
+
     include_once "app/views/formulario.php";
 }
 
@@ -113,8 +120,10 @@ function crudModificarAnterior($id)
     $orden = "Modificar";
     if (!$cli) {
         $msg = "No hay mas clientes disponibles";
-        $cli = $db->getUltimoCliente();
+        $cli = $db->getPrimerCliente();
     }
+    $imagenCliente = recuperarImagenCliente($cli->id);
+
     include_once "app/views/formulario.php";
 }
 
@@ -236,5 +245,26 @@ function comprobarTelefono($telefono)
 
 function validarTodosLosCampos($cli)
 {
-    return comprobarEmail($cli->email, id: $cli->id) && comprobarIP($cli->ip_address) && comprobarTelefono($cli->telefono);
+    return comprobarEmail($cli->email, id: $cli->id) 
+            && comprobarIP($cli->ip_address) 
+            && comprobarTelefono($cli->telefono);
+}
+
+// (3) Función para recuperar imagen de cliente
+function recuperarImagenCliente($id)
+{
+    $idFormateado = str_pad($id, 8, '0', STR_PAD_LEFT);
+    $rutaImagen = "app/uploads/$idFormateado.jpg"; 
+
+if (file_exists($rutaImagen)) {
+
+    $contenidoImagen = file_get_contents($rutaImagen);
+
+    // Codificar la imagen en Base64
+    $imagenBase64 = 'data:image/jpg;base64,' . base64_encode($contenidoImagen);
+} else {
+    $imagenBase64 = null;
+}
+return $imagenBase64;
+
 }
