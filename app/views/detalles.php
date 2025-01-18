@@ -1,41 +1,3 @@
-<?php
-
-$codigoPaisMinusculas = obtenerDatosPaisPorIP($cli->ip_address)['countryCode'] ?? null;
-$codigoPaisMinusculas = $codigoPaisMinusculas !== null ? strtolower($codigoPaisMinusculas) : null;
-
-$latitudPais = obtenerDatosPaisPorIP($cli->ip_address)['lat'] ?? 0;
-$longitudPais = obtenerDatosPaisPorIP($cli->ip_address)['lon'] ?? 0;
-
-if($latitudPais == 0 && $longitudPais == 0){
-    $zoomMapa = 2;
-      $mensajeMapa = "No se ha podido obtener la ubicación del cliente.";
-}else{
-      $zoomMapa = 13;
-      $mensajeMapa = "Ubicación del cliente.";
-}
-
-
-
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-   <title>Document</title>
-   <style>
-      #map {
-         height: 400px;
-         width: 100%;
-         margin-top: 20px;
-      }
-   </style>
-</head>
-
-<body>
    <hr>
    <button onclick="location.href='./'"> Volver </button>
    <br><br>
@@ -69,7 +31,7 @@ if($latitudPais == 0 && $longitudPais == 0){
       </tr>
       <tr>
          <td>ip_address:</td>
-         <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly> <img src="https://flagcdn.com/16x12/<?= $codigoPaisMinusculas ?>.png" alt="Bandera pais"></td>
+         <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly> <img src="https://flagcdn.com/16x12/<?= $codigoPaisMinusculas ?>.png" alt="Bandera <?=$nombrePais?>"></td>
       </tr>
       </tr>
       <tr>
@@ -85,11 +47,12 @@ if($latitudPais == 0 && $longitudPais == 0){
       <button type="submit" name="nav-detalles" value="Siguiente">Siguiente</button>
    </form>
    <p><?= $msg ?? "" ?></p>
+
    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
    <script>
       // Coordenadas del cliente
-      const lat = <?= $latitudPais ?? 40.7128 ?>; // Latitud del cliente o valor predeterminado
-      const lon = <?= $longitudPais ?? -74.0060 ?>; // Longitud del cliente o valor predeterminado
+      const lat = <?= $latitudPais ?>; 
+      const lon = <?= $longitudPais ?>; 
 
       // Crear el mapa centrado en las coordenadas
       const map = L.map('map').setView([lat, lon], <?= $zoomMapa ?>);
@@ -104,6 +67,3 @@ if($latitudPais == 0 && $longitudPais == 0){
          .bindPopup('<?= $mensajeMapa; ?>')
          .openPopup();
    </script>
-</body>
-
-</html>
