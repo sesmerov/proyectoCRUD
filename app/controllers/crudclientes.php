@@ -257,14 +257,11 @@ function recuperarImagenCliente($id)
     $rutaImagen = "app/uploads/$idFormateado.jpg"; 
 
 if (file_exists($rutaImagen)) {
-
     $contenidoImagen = file_get_contents($rutaImagen);
-
     // Codificar la imagen en Base64
     $imagenBase64 = 'data:image/jpg;base64,' . base64_encode($contenidoImagen);
 } else {
-    $imagenBase64 = null;
+    $imagenBase64 = "https://robohash.org/$id";
 }
 return $imagenBase64;
-
 }

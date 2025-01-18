@@ -1,10 +1,6 @@
 <hr>
 <?php if($orden == "Modificar"){?>
-    <?php if ($imagenCliente) : ?>
       <img id="perfil" src="<?= $imagenCliente?>" alt="Foto de <?=$cli->first_name." ".$cli->last_name?>" />
-   <?php else : ?>
-      <img id="perfil" src="https://robohash.org/<?=$cli->id?>" alt="Imagen aleatoria" />
-   <?php endif; ?>
 <?php } ?>
 <form method="POST">
 
@@ -28,7 +24,6 @@
 
     <label for="telefono">Teléfono:</label>
     <input type="text" id="telefono" name="telefono" value="<?= $cli->telefono; ?>">
-
 
     <input type="submit" name="orden" value="<?= $orden ?>">
     <input type="submit" name="orden" value="Volver">
