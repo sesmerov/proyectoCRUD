@@ -31,12 +31,6 @@ function crudDetalles($id)
 
     $datosPais = obtenerDatosPaisPorIP($cli->ip_address);
     $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
-    $codigoPaisMinusculas = $datosPaisProcesados['codigoPais'];
-    $nombrePais = $datosPaisProcesados['nombrePais'];
-    $latitudPais = $datosPaisProcesados['latitud'];
-    $longitudPais = $datosPaisProcesados['longitud'];
-    $zoomMapa = $datosPaisProcesados['zoomMapa'];
-    $mensajeMapa = $datosPaisProcesados['mensajeMapa'];
 
     $imagenCliente = recuperarImagenCliente($cli->id);
 
@@ -54,12 +48,6 @@ function crudDetallesSiguiente($id)
 
     $datosPais = obtenerDatosPaisPorIP($cli->ip_address);
     $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
-    $codigoPaisMinusculas = $datosPaisProcesados['codigoPais'];
-    $nombrePais = $datosPaisProcesados['nombrePais'];
-    $latitudPais = $datosPaisProcesados['latitud'];
-    $longitudPais = $datosPaisProcesados['longitud'];
-    $zoomMapa = $datosPaisProcesados['zoomMapa'];
-    $mensajeMapa = $datosPaisProcesados['mensajeMapa'];
 
     $imagenCliente = recuperarImagenCliente($cli->id);
 
@@ -77,12 +65,6 @@ function crudDetallesAnterior($id)
 
     $datosPais = obtenerDatosPaisPorIP($cli->ip_address);
     $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
-    $codigoPaisMinusculas = $datosPaisProcesados['codigoPais'];
-    $nombrePais = $datosPaisProcesados['nombrePais'];
-    $latitudPais = $datosPaisProcesados['latitud'];
-    $longitudPais = $datosPaisProcesados['longitud'];
-    $zoomMapa = $datosPaisProcesados['zoomMapa'];
-    $mensajeMapa = $datosPaisProcesados['mensajeMapa'];
 
     $imagenCliente = recuperarImagenCliente($cli->id);
 
@@ -266,6 +248,7 @@ function recuperarImagenCliente($id)
     return $imagenBase64;
 }
 
+// (4) Funcion para guardar imagen de cliente
 function guardarImagen($id)
 {
     //Restricciones

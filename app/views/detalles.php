@@ -28,7 +28,7 @@
       </tr>
       <tr>
          <td>ip_address:</td>
-         <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly> <img src="https://flagcdn.com/16x12/<?= $codigoPaisMinusculas ?>.png" alt="Bandera <?=$nombrePais?>"></td>
+         <td><input type="text" name="ip_address" value="<?= $cli->ip_address ?>" readonly> <img src="https://flagcdn.com/16x12/<?= $datosPaisProcesados['codigoPais'] ?>.png" alt="Bandera <?=$datosPaisProcesados['nombrePais'];?>"></td>
       </tr>
       </tr>
       <tr>
@@ -48,11 +48,11 @@
    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
    <script>
       // Coordenadas del cliente
-      const lat = <?= $latitudPais ?>; 
-      const lon = <?= $longitudPais ?>; 
+      const lat = <?= $datosPaisProcesados['latitud'] ?>; 
+      const lon = <?= $datosPaisProcesados['longitud'] ?>; 
 
       // Crear el mapa centrado en las coordenadas
-      const map = L.map('map').setView([lat, lon], <?= $zoomMapa ?>);
+      const map = L.map('map').setView([lat, lon], <?= $datosPaisProcesados['zoomMapa'] ?>);
 
       // Añadir el mapa base de OpenStreetMap
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -61,6 +61,6 @@
 
       // Añadir un marcador en las coordenadas del cliente
       L.marker([lat, lon]).addTo(map)
-         .bindPopup('<?= $mensajeMapa; ?>')
+         .bindPopup('<?= $datosPaisProcesados['mensajeMapa']; ?>')
          .openPopup();
    </script>
