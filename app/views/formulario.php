@@ -1,9 +1,11 @@
 <hr>
-<?php if($orden == "Modificar"){?>
-      <img id="perfil" src="<?= $imagenCliente?>" alt="Foto de <?=$cli->first_name." ".$cli->last_name?>" />
+<?php if ($orden == "Modificar") { ?>
+    <img id="perfil" src="<?= $imagenCliente ?>" alt="Foto de <?= $cli->first_name . " " . $cli->last_name ?>" />
 <?php } ?>
-<form method="POST">
-
+<form method="POST" enctype="multipart/form-data">
+<label for="imagen">Subir imagen:</label><br>
+    <input type="file" name="imagen" id="imagen" accept=".jpg,.jpeg,.png"><br><br>
+    <input type="hidden" name="MAX_FILE_SIZE" value="512000">
     <label for="id">Id:</label>
     <input type="text" name="id" readonly value="<?= $cli->id ?>">
 
@@ -28,11 +30,11 @@
     <input type="submit" name="orden" value="<?= $orden ?>">
     <input type="submit" name="orden" value="Volver">
 </form>
-<?php if($orden == "Modificar"){?>
+<?php if ($orden == "Modificar") { ?>
     <form action="">
-    <input type="hidden" name="id" value="<?=$cli->id ?>">
-    <button type="submit" name="nav-modificar" value="Anterior">Anterior</button>
-    <button type="submit" name="nav-modificar" value="Siguiente">Siguiente</button>
- </form>
+        <input type="hidden" name="id" value="<?= $cli->id ?>">
+        <button type="submit" name="nav-modificar" value="Anterior">Anterior</button>
+        <button type="submit" name="nav-modificar" value="Siguiente">Siguiente</button>
+    </form>
 <?php } ?>
-<p><?= $msg ?? ""?></p>
+<p><?= $msg ?? "" ?></p>

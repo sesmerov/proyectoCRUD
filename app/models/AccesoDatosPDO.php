@@ -188,7 +188,6 @@ class AccesoDatos {
     //DELETE 
     public function borrarCliente(int $id):bool {
 
-
         $stmt_boruser   = $this->dbh->prepare("delete from Clientes where id =:id");
 
         $stmt_boruser->bindValue(':id', $id);
@@ -196,7 +195,12 @@ class AccesoDatos {
         $resu = ($stmt_boruser->rowCount () == 1);
         return $resu;
         
-    }   
+    }
+
+    public function lastInsertId()
+{
+    return $this->dbh->lastInsertId();
+}
 
 
      // Evito que se pueda clonar el objeto. (SINGLETON)

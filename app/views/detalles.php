@@ -5,9 +5,6 @@
    <table>
          <td>id:</td>
          <td><input type="number" name="id" value="<?= $cli->id ?>" readonly> </td>
-         <td rowspan="7">
-            <img src=""></img>
-         </td>
       </tr>
       <tr>
          <td>first_name:</td>
