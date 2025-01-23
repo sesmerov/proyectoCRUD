@@ -10,7 +10,7 @@
 
 - Mostrar la lista de clientes con distintos modos de ordenación: nombre, apellido, correo electrónico, género o IP y poder navegar por ella. 
 
-- Generar un PDF con los todos detalles de un cliente ( Incluir un botón que indique imprimir)
+- ✔️ Generar un PDF con los todos detalles de un cliente ( Incluir un botón que indique imprimir)
 
 - Crear una nueva tabla en la BD de usuarios de la aplicación (User)  con tres campos: login, password( encriptada )  y rol (0/1), definir varios usuarios y controlar el acceso a la aplicación sólo si se introduce el login y el password correctos. Si se realizan más de tres intentos erróneos se solicitará que se reinicie el navegador.
 
