@@ -1,40 +1,90 @@
-<hr>
-<?php if ($orden == "Modificar") { ?>
-    <img id="perfil" src="<?= $imagenCliente ?>" alt="Foto de <?= $cli->first_name . " " . $cli->last_name ?>" />
-<?php } ?>
-<form method="POST" enctype="multipart/form-data">
-<label for="imagen">Subir imagen:</label><br>
-    <input type="file" name="imagen" id="imagen" accept=".jpg,.jpeg,.png"><br><br>
-    <input type="hidden" name="MAX_FILE_SIZE" value="512000">
-    <label for="id">Id:</label>
-    <input type="text" name="id" readonly value="<?= $cli->id ?>">
+<div class="container mt-3">
+    <!-- Botón Volver -->
+    <div class="mb-2 text-center">
+        <button class="btn btn-secondary" onclick="location.href='./'">Volver</button>
+    </div>
 
-    <label for="first_name">Nombre:</label>
-    <input type="text" id="first_name" name="first_name" value="<?= $cli->first_name; ?>">
+    <!-- Card con Imagen y Formulario -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-primary text-white text-center">
+            <h2><?= $orden == "Modificar" ? "Modificar Cliente" : "Nuevo Cliente" ?></h2>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-center">
+                <!-- Imagen del Perfil (Solo si es Modificar) -->
+                <?php if ($orden == "Modificar") { ?>
+                <div class="col-md-4 text-center">
+                    <img id="perfil" src="<?= $imagenCliente ?>" alt="Foto de <?= $cli->first_name . ' ' . $cli->last_name ?>" 
+                         class="rounded-circle img-thumbnail mb-2" style="width: 200px; height: 200px;">
+                </div>
+                <?php } ?>
 
-    <label for="last_name">Apellido:</label>
-    <input type="text" id="last_name" name="last_name" value="<?= $cli->last_name; ?>">
+                <!-- Formulario -->
+                <div class="<?= $orden == "Modificar" ? 'col-md-8' : 'col-12' ?>">
+                    <form method="POST" enctype="multipart/form-data">
+                        <!-- Subir Imagen -->
+                        <div class="mb-2">
+                            <label for="imagen" class="form-label">Subir imagen:</label>
+                            <input type="file" class="form-control" name="imagen" id="imagen" accept=".jpg,.jpeg,.png">
+                        </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?= $cli->email; ?>">
+                        <!-- Datos del Cliente -->
+                        <div class="mb-2">
+                            <label for="id" class="form-label">ID:</label>
+                            <input type="text" class="form-control" id="id" name="id" readonly value="<?= $cli->id ?>">
+                        </div>
 
-    <label for="gender">Género:</label>
-    <input type="text" id="gender" name="gender" value="<?= $cli->gender; ?>">
+                        <div class="mb-2">
+                            <label for="first_name" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="<?= $cli->first_name; ?>">
+                        </div>
 
-    <label for="ip_address">Dirección IP:</label>
-    <input type="text" id="ip_address" name="ip_address" value="<?= $cli->ip_address; ?>">
+                        <div class="mb-2">
+                            <label for="last_name" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?= $cli->last_name; ?>">
+                        </div>
 
-    <label for="telefono">Teléfono:</label>
-    <input type="text" id="telefono" name="telefono" value="<?= $cli->telefono; ?>">
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<?= $cli->email; ?>">
+                        </div>
 
-    <input type="submit" name="orden" value="<?= $orden ?>">
-    <input type="submit" name="orden" value="Volver">
-</form>
-<?php if ($orden == "Modificar") { ?>
-    <form action="">
+                        <div class="mb-2">
+                            <label for="gender" class="form-label">Género:</label>
+                            <input type="text" class="form-control" id="gender" name="gender" value="<?= $cli->gender; ?>">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="ip_address" class="form-label">Dirección IP:</label>
+                            <input type="text" class="form-control" id="ip_address" name="ip_address" value="<?= $cli->ip_address; ?>">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="telefono" class="form-label">Teléfono:</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" value="<?= $cli->telefono; ?>">
+                        </div>
+
+                        <!-- Botón Único (Nuevo o Modificar) -->
+                        <div class="text-center">
+                            <button type="submit" name="orden" value="<?= $orden ?>" class="btn btn-primary">
+                                <?= $orden ?>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de Navegación (Solo si es Modificar) -->
+    <?php if ($orden == "Modificar") { ?>
+    <form class="d-flex justify-content-center">
         <input type="hidden" name="id" value="<?= $cli->id ?>">
-        <button type="submit" name="nav-modificar" value="Anterior">Anterior</button>
-        <button type="submit" name="nav-modificar" value="Siguiente">Siguiente</button>
+        <button type="submit" name="nav-modificar" value="Anterior" class="btn btn-secondary mx-2">Anterior</button>
+        <button type="submit" name="nav-modificar" value="Siguiente" class="btn btn-secondary mx-2">Siguiente</button>
     </form>
-<?php } ?>
-<p><?= $msg ?? "" ?></p>
+    <?php } ?>
+
+    <!-- Mensaje -->
+    <p class="text-center text-muted mt-2"><?= $msg ?? "" ?></p>
+</div>

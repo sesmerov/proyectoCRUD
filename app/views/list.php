@@ -32,13 +32,9 @@
                             <a href="#" onclick="confirmarBorrar('<?= $cli->first_name ?>','<?= $cli->id ?>');" class="btn btn-danger btn-sm">
                                 Borrar
                             </a>
-                        </td>
-                        <td>
                             <a href="?orden=Modificar&id=<?= $cli->id ?>" class="btn btn-warning btn-sm">
                                 Modificar
                             </a>
-                        </td>
-                        <td>
                             <a href="?orden=Detalles&id=<?= $cli->id ?>" class="btn btn-info btn-sm">
                                 Detalles
                             </a>
