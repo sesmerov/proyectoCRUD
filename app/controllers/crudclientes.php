@@ -166,6 +166,21 @@ function crudPostModificar()
 
 }
 
+
+//Genera PDF
+
+function generarPDF($id){
+    $db = AccesoDatos::getModelo();
+    $cli = $db->getCliente($id);
+    $datosPais = obtenerDatosPaisPorIP($cli->ip_address);
+    $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
+    $imagenCliente = recuperarImagenCliente($cli->id);
+    require_once "app/views/pdf.php";
+}
+
+
+
+
 // (5 y 10) Funciones para obtener el datos del país a partir de una dirección IP
 function obtenerDatosPaisPorIP($ip)
 {

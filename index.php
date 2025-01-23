@@ -67,8 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" ){
         $_SESSION['posini'] = $posAux;
     }
 
-
-
     // Proceso de ordenes de CRUD clientes
     if ( isset($_GET['orden'])){
         switch ($_GET['orden']) {
@@ -77,6 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" ){
             case "Modificar": crudModificar($_GET['id']); break;
             case "Detalles" : crudDetalles ($_GET['id']);break;
             case "Terminar" : crudTerminar(); break;
+        }
+    }
+
+    if(isset($_GET)){
+        if(isset($_GET['generarPDF'])){
+           generarPDF($_GET['id']);
         }
     }
 } 
