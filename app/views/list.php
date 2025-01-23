@@ -1,12 +1,11 @@
 <div class="container mt-5">
-    <!-- Botón para agregar nuevo cliente -->
+
     <form class="mb-3 text-center">
         <button type="submit" name="orden" value="Nuevo" class="btn btn-primary">
             Cliente Nuevo
         </button>
     </form>
 
-    <!-- Tabla de clientes -->
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover text-center">
             <thead class="table-dark">
@@ -50,11 +49,11 @@
         </table>
     </div>
 
-    <!-- Botones de navegación -->
     <form class="d-flex justify-content-center mt-3">
         <button name="nav" value="Primero" class="btn btn-secondary mx-1"><<</button>
         <button name="nav" value="Anterior" class="btn btn-secondary mx-1"><</button>
         <button name="nav" value="Siguiente" class="btn btn-secondary mx-1">></button>
         <button name="nav" value="Ultimo" class="btn btn-secondary mx-1">>></button>
     </form>
-</div>
+
+    
