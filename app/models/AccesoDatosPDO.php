@@ -55,22 +55,25 @@ class AccesoDatos {
     
 
     // SELECT Devuelvo la lista de Usuarios
-    public function getClientes ($primero,$cuantos):array {
-        $tuser = [];
-        // Crea la sentencia preparada
-       // echo "<h1> $primero : $cuantos  </h1>";
-        $stmt_usuarios  = $this->dbh->prepare("select * from Clientes limit $primero,$cuantos");
-        // Si falla termina el programa
-        $stmt_usuarios->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
+// SELECT Devuelvo la lista de Usuarios
+public function getClientes($primero, $cuantos, $orden = 'id'): array {
+    $tuser = [];
     
-        if ( $stmt_usuarios->execute() ){
-            while ( $user = $stmt_usuarios->fetch()){
-               $tuser[]= $user;
-            }
+    $query = "SELECT * FROM Clientes ORDER BY $orden LIMIT :primero, :cuantos";
+    $stmt_usuarios = $this->dbh->prepare($query);
+    
+    $stmt_usuarios->bindValue(':primero', $primero, PDO::PARAM_INT);
+    $stmt_usuarios->bindValue(':cuantos', $cuantos, PDO::PARAM_INT);
+    
+    $stmt_usuarios->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
+    if ($stmt_usuarios->execute()) {
+        while ($user = $stmt_usuarios->fetch()) {
+            $tuser[] = $user;
         }
-                // Devuelvo el array de objetos
-        return $tuser;
     }
+    return $tuser;
+}
+
     
       
     // SELECT Devuelvo un usuario o false

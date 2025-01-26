@@ -1,17 +1,15 @@
 <div class="container mt-3">
-    <!-- Botón Volver -->
+
     <div class="mb-2 text-center">
         <button class="btn btn-secondary" onclick="location.href='./'">Volver</button>
     </div>
 
-    <!-- Card con Imagen y Formulario -->
     <div class="card shadow-sm mb-3">
         <div class="card-header bg-primary text-white text-center">
             <h2><?= $orden == "Modificar" ? "Modificar Cliente" : "Nuevo Cliente" ?></h2>
         </div>
         <div class="card-body">
             <div class="row align-items-center">
-                <!-- Imagen del Perfil (Solo si es Modificar) -->
                 <?php if ($orden == "Modificar") { ?>
                 <div class="col-md-4 text-center">
                     <img id="perfil" src="<?= $imagenCliente ?>" alt="Foto de <?= $cli->first_name . ' ' . $cli->last_name ?>" 
@@ -19,16 +17,13 @@
                 </div>
                 <?php } ?>
 
-                <!-- Formulario -->
                 <div class="<?= $orden == "Modificar" ? 'col-md-8' : 'col-12' ?>">
                     <form method="POST" enctype="multipart/form-data">
-                        <!-- Subir Imagen -->
                         <div class="mb-2">
                             <label for="imagen" class="form-label">Subir imagen:</label>
                             <input type="file" class="form-control" name="imagen" id="imagen" accept=".jpg,.jpeg,.png">
                         </div>
 
-                        <!-- Datos del Cliente -->
                         <div class="mb-2">
                             <label for="id" class="form-label">ID:</label>
                             <input type="text" class="form-control" id="id" name="id" readonly value="<?= $cli->id ?>">
@@ -76,7 +71,6 @@
         </div>
     </div>
 
-    <!-- Botones de Navegación (Solo si es Modificar) -->
     <?php if ($orden == "Modificar") { ?>
     <form class="d-flex justify-content-center">
         <input type="hidden" name="id" value="<?= $cli->id ?>">

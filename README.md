@@ -8,7 +8,7 @@
 
 - ✔️ Mostrar en detalles una bandera del país asociado a la IP ( utilizar https://ip-api.com/  y  https://flagpedia.net/ )
 
-- Mostrar la lista de clientes con distintos modos de ordenación: nombre, apellido, correo electrónico, género o IP y poder navegar por ella. 
+- ✔️ Mostrar la lista de clientes con distintos modos de ordenación: nombre, apellido, correo electrónico, género o IP y poder navegar por ella. 
 
 - ✔️ Generar un PDF con los todos detalles de un cliente ( Incluir un botón que indique imprimir)
 

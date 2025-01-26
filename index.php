@@ -9,6 +9,31 @@ require_once 'app/models/Cliente.php';
 require_once 'app/models/AccesoDatosPDO.php';
 require_once 'app/controllers/crudclientes.php';
 
+// ORDEN POR CAMPO
+
+if (!isset($_SESSION['orden'])) {
+    $_SESSION['orden'] = 'id';
+}
+
+// Cambiar el campo de orden si se solicita
+if (isset($_GET['ordenar'])) {
+    $camposPermitidos = ['id', 'first_name', 'email', 'gender', 'ip_address', 'telefono'];
+    if (in_array($_GET['ordenar'], $camposPermitidos)) {
+        $_SESSION['orden'] = $_GET['ordenar'];
+    }else{
+        $_SESSION['orden'] = 'id';
+    }
+}
+
+$orden = $_SESSION['orden'];
+
+// Manejar la posición de inicio para la paginación
+if (!isset($_SESSION['posini'])) {
+    $_SESSION['posini'] = 0;
+}
+
+$posini = $_SESSION['posini'];
+
 //---- PAGINACIÓN ----
 $midb = AccesoDatos::getModelo();
 $totalfilas = $midb->numClientes();
@@ -95,12 +120,13 @@ else {
     }
 }
 
+
 // Si no hay nada en la buffer 
 // Cargo genero la vista con la lista por defecto
 if ( ob_get_length() == 0){
     $db = AccesoDatos::getModelo();
     $posini = $_SESSION['posini'];
-    $tclientes = $db->getClientes($posini,FPAG);
+    $tclientes = $db->getClientes($posini, FPAG, $orden);
     require_once "app/views/list.php";    
 }
 $contenido = ob_get_clean();

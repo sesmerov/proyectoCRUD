@@ -10,13 +10,14 @@
         <table class="table table-bordered table-striped table-hover text-center">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>IP Address</th>
-                    <th>Teléfono</th>
-                    <th colspan="3">Acciones</th>
+
+                    <th><a href="?ordenar=id" class="text-decoration-none text-white">ID</a></th>
+                    <th><a href="?ordenar=first_name" class="text-decoration-none text-white">Nombre</a></th>
+                    <th><a href="?ordenar=email" class="text-decoration-none text-white">Email</a></th>
+                    <th><a href="?ordenar=gender" class="text-decoration-none text-white">Género</a></th>
+                    <th><a href="?ordenar=ip_address" class="text-decoration-none text-white">IP</a></th>
+                    <th><a href="?ordenar=telefono" class="text-decoration-none text-white">Teléfono</a></th>
+                    <th colspan="1">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,10 +47,12 @@
     </div>
 
     <form class="d-flex justify-content-center mt-3">
-        <button name="nav" value="Primero" class="btn btn-secondary mx-1"><<</button>
-        <button name="nav" value="Anterior" class="btn btn-secondary mx-1"><</button>
-        <button name="nav" value="Siguiente" class="btn btn-secondary mx-1">></button>
-        <button name="nav" value="Ultimo" class="btn btn-secondary mx-1">>></button>
+        <button name="nav" value="Primero" class="btn btn-secondary mx-1">
+            <<
+                </button>
+                <button name="nav" value="Anterior" class="btn btn-secondary mx-1">
+                    <
+                        </button>
+                        <button name="nav" value="Siguiente" class="btn btn-secondary mx-1">></button>
+                        <button name="nav" value="Ultimo" class="btn btn-secondary mx-1">>></button>
     </form>
-
-    
