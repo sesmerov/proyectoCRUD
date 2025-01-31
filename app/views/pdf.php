@@ -7,7 +7,6 @@ header('Content-Disposition: inline; filename="cliente_' . $id . '.pdf"');
 
 $mpdf = new \Mpdf\Mpdf();
 
-    // Crea el contenido del PDF (puedes usar HTML completo aquí)
     $html = "
         <h1>Datos del Cliente:</h1>
          <div style='text-align: center; margin-bottom: 20px;'>
@@ -50,9 +49,6 @@ $mpdf = new \Mpdf\Mpdf();
 
     // Escribe el contenido en el PDF
     $mpdf->WriteHTML($html);
-
-    // Configura las cabeceras para que se abra en una nueva ventana
-
 
     // Muestra el PDF en una nueva ventana
     $mpdf->Output('cliente_' . $id . '.pdf', \Mpdf\Output\Destination::INLINE);
