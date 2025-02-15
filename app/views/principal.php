@@ -1,3 +1,10 @@
+<?php if (isset($_SESSION['msg-error'])): ?>
+    <div class="text-center">
+        <?= $_SESSION['msg-error'] ?>
+    </div>
+    <?php unset($_SESSION['msg-error']); ?>
+<?php endif; ?>
+
 <!DOCTYPE html>
 <html>
 

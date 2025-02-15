@@ -129,16 +129,43 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" ){
     }
 
     // Proceso de ordenes de CRUD clientes
-    if ( isset($_GET['orden'])){
+    if (isset($_GET['orden'])) {
         switch ($_GET['orden']) {
-            case "Nuevo"    : crudAlta(); break;
-            case "Borrar"   : crudBorrar   ($_GET['id']); break;
-            case "Modificar": crudModificar($_GET['id']); break;
-            case "Detalles" : crudDetalles ($_GET['id']);break;
-            case "Terminar" : crudTerminar(); break;
+            case "Nuevo":
+                if ($_SESSION['rol'] == 1) {
+                    crudAlta();
+                } else {
+                    $_SESSION['msg-error'] = "No tienes permiso para realizar esta acción.";
+                    header("Location: index.php");
+                    exit();
+                }
+                break;
+            case "Borrar":
+                if ($_SESSION['rol'] == 1) {
+                    crudBorrar($_GET['id']);
+                } else {
+                    $_SESSION['msg-error'] = "No tienes permiso para realizar esta acción.";
+                    header("Location: index.php");
+                    exit();
+                }
+                break;
+            case "Modificar":
+                if ($_SESSION['rol'] == 1) {
+                    crudModificar($_GET['id']);
+                } else {
+                    $_SESSION['msg-error'] = "No tienes permiso para realizar esta acción.";
+                    header("Location: index.php");
+                    exit();
+                }
+                break;
+            case "Detalles":
+                crudDetalles($_GET['id']);
+                break;
+            case "Terminar":
+                crudTerminar();
+                break;
         }
     }
-
     if(isset($_GET)){
         if(isset($_GET['generarPDF'])){
            generarPDF($_GET['id']);

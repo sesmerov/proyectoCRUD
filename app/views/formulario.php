@@ -1,3 +1,10 @@
+<?php if ($_SESSION['rol'] != 1): ?>
+    <div class="alert alert-danger text-center">
+        No tienes permiso para acceder a esta página.
+    </div>
+    <?php exit(); ?>
+<?php endif; ?>
+
 <div class="container mt-3">
 
     <div class="mb-2 text-center">
