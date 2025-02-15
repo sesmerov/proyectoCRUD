@@ -40,15 +40,15 @@ function crudDetalles($id)
 function crudDetallesSiguiente($id)
 {
     $db = AccesoDatos::getModelo();
-    $cli = $db->getClienteSiguiente($id);
+    $orden = $_SESSION['orden'] ?? 'id'; 
+    $cli = $db->getClienteSiguiente($id, $orden);
     if (!$cli) {
-        $msg = "No hay mas clientes disponibles";
+        $msg = "No hay más clientes disponibles";
         $cli = $db->getUltimoCliente();
     }
 
     $datosPais = obtenerDatosPaisPorIP($cli->ip_address);
     $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
-
     $imagenCliente = recuperarImagenCliente($cli->id);
 
     include_once "app/views/detalles.php";
@@ -57,15 +57,15 @@ function crudDetallesSiguiente($id)
 function crudDetallesAnterior($id)
 {
     $db = AccesoDatos::getModelo();
-    $cli = $db->getClienteAnterior($id);
+    $orden = $_SESSION['orden'] ?? 'id';
+    $cli = $db->getClienteAnterior($id, $orden);
     if (!$cli) {
-        $msg = "No hay mas clientes disponibles";
+        $msg = "No hay más clientes disponibles";
         $cli = $db->getPrimerCliente();
     }
 
     $datosPais = obtenerDatosPaisPorIP($cli->ip_address);
     $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
-
     $imagenCliente = recuperarImagenCliente($cli->id);
 
     include_once "app/views/detalles.php";
@@ -154,13 +154,14 @@ function crudPostModificar()
     if (!validarTodosLosCampos($cli)) {
         $msg = " Revise email, ip y teléfono ";
         $orden = "Modificar";
+        $imagenCliente = recuperarImagenCliente($cli->id);
         include_once "app/views/formulario.php";
     } else {
         $db = AccesoDatos::getModelo();
         if ($db->modCliente($cli) || guardarImagen($cli->id)) {
             $_SESSION['msg'] = " El usuario ha sido modificado";
         } else {
-            $_SESSION['msg'] = " Error al modificar el usuario ";
+            $_SESSION['msg'] = " Error al modificar el usuario.  ";
         }
     }
 }
@@ -174,4 +175,26 @@ function generarPDF($id)
     $datosPaisProcesados = procesarClienteConDatosPais($datosPais);
     $imagenCliente = recuperarImagenCliente($cli->id);
     require_once "app/views/pdf.php";
+}
+
+// (8) LOGIN
+function crudUsuario($login, $password){
+    $db = AccesoDatos::getModelo();
+    $usuario = $db->getUsuario($login);
+
+    if (!$usuario) {
+        error_log("Usuario no encontrado: $login"); // Depuración
+        return false;
+    }
+
+    error_log("Contraseña proporcionada: $password"); // Depuración
+    error_log("Contraseña almacenada: " . $usuario['password']); // Depuración
+
+    if (password_verify($password, $usuario['password'])) {
+        error_log("Contraseña correcta para el usuario: $login"); // Depuración
+        return $usuario['rol'];
+    } else {
+        error_log("Contraseña incorrecta para el usuario: $login"); // Depuración
+        return false;
+    }
 }

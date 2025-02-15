@@ -126,10 +126,18 @@ function guardarImagen($id)
         $extension = $tipoArchivo === 'image/jpeg' ? '.jpg' : '.png';
         $nombreArchivo = str_pad($id, 8, '0', STR_PAD_LEFT) . $extension;
 
+        // Eliminar la imagen anterior si existe (la del otro formato)
+        $extOpuesta = ($extension === '.jpg') ? '.png' : '.jpg';
+        $archivoOpuesto = $directorioDestino . str_pad($id, 8, '0', STR_PAD_LEFT) . $extOpuesta;
+
+        if (file_exists($archivoOpuesto)) {
+            unlink($archivoOpuesto);
+        }
         // Ruta de destino
         $rutaDestino = $directorioDestino . $nombreArchivo;
 
         if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
+
             return true;
         } else {
             return false;

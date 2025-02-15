@@ -1,5 +1,8 @@
 <?php
 session_start();
+ini_set('display_errors', 1); // Muestra errores en pantalla
+ini_set('display_startup_errors', 1); // Muestra errores de inicio
+error_reporting(E_ALL); // Reporta todos los errores
 define ('FPAG',10); // Número de filas por página
 
 
@@ -8,6 +11,42 @@ require_once 'app/config/configDB.php';
 require_once 'app/models/Cliente.php';
 require_once 'app/models/AccesoDatosPDO.php';
 require_once 'app/controllers/crudclientes.php';
+
+//LOGIN
+
+if (!isset($_SESSION['intentos'])) {
+    $_SESSION['intentos'] = 0;
+}
+
+if ($_SESSION['intentos']>= 3) {
+    $msg = "Intentos de inicio de sesiñon superados. Reinica el navegador";
+    require_once "app/views/login.php"; 
+    exit();
+}
+
+if (!isset($_SESSION['rol'])) {
+    // Si se envía el formulario de login
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+
+        
+        $rol = crudUsuario($login, $password);
+        if ($rol !== false) { 
+            $_SESSION['rol'] = $rol;
+            $_SESSION['intentos'] = 0; 
+        } else {
+            $_SESSION['intentos']++;
+            $msg = "Usuario o contraseña incorrectos. Intento " . $_SESSION['intentos'] . " de 3.";
+            require_once "app/views/login.php";
+            exit();
+        }
+    } else {
+        require_once "app/views/login.php";
+        exit();
+    }
+}
+
 
 // ORDEN POR CAMPO
 
@@ -118,6 +157,7 @@ else {
              case "Detalles":; // No hago nada
          }
     }
+
 }
 
 

@@ -90,14 +90,14 @@ public function getClientes($primero, $cuantos, $orden = 'id'): array {
         return $cli;
     }
 
-    public function getClienteSiguiente (int $id) {
+    public function getClienteSiguiente(int $id, string $orden = 'id') {
         $cli = false;
-        $stmt_cli_siguiente   = $this->dbh->prepare("select * from Clientes where id>:id limit 1");
-        $stmt_cli_siguiente->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
-        $stmt_cli_siguiente->bindParam(':id', $id);
-        if ( $stmt_cli_siguiente->execute() ){
-             if ( $obj = $stmt_cli_siguiente->fetch()){
-                $cli= $obj;
+        $stmt = $this->dbh->prepare("SELECT * FROM Clientes WHERE $orden > (SELECT $orden FROM Clientes WHERE id = :id) ORDER BY $orden ASC LIMIT 1");
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
+        $stmt->bindParam(':id', $id);
+        if ($stmt->execute()) {
+            if ($obj = $stmt->fetch()) {
+                $cli = $obj;
             }
         }
         return $cli;
@@ -115,14 +115,14 @@ public function getClientes($primero, $cuantos, $orden = 'id'): array {
         return $cli;
     }
 
-    public function getClienteAnterior (int $id) {
+    public function getClienteAnterior(int $id, string $orden = 'id') {
         $cli = false;
-        $stmt_cli_anterior   = $this->dbh->prepare("SELECT * FROM Clientes WHERE id < :id ORDER BY id DESC LIMIT 1;");
-        $stmt_cli_anterior->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
-        $stmt_cli_anterior->bindParam(':id', $id);
-        if ( $stmt_cli_anterior->execute() ){
-             if ( $obj = $stmt_cli_anterior->fetch()){
-                $cli= $obj;
+        $stmt = $this->dbh->prepare("SELECT * FROM Clientes WHERE $orden < (SELECT $orden FROM Clientes WHERE id = :id) ORDER BY $orden DESC LIMIT 1");
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Cliente');
+        $stmt->bindParam(':id', $id);
+        if ($stmt->execute()) {
+            if ($obj = $stmt->fetch()) {
+                $cli = $obj;
             }
         }
         return $cli;
@@ -198,6 +198,23 @@ public function getClientes($primero, $cuantos, $orden = 'id'): array {
         $resu = ($stmt_boruser->rowCount () == 1);
         return $resu;
         
+    }
+
+
+    //LOGIN
+
+    public function getUsuario (string $login) {
+        $user = false;
+        $stmt_user = $this->dbh->prepare("SELECT * FROM Usuarios WHERE login = :login");
+        $stmt_user->bindParam(':login', $login);
+        $stmt_user->execute();
+        if ( $stmt_user->execute() ){
+             if ( $obj = $stmt_user->fetch()){
+                error_log("Usuario encontrado: " . print_r($obj, true)); // Depuración
+                $user= $obj;
+            }
+        }
+        return $user;
     }
 
     public function lastInsertId()

@@ -9,6 +9,18 @@ create table Clientes (
 	CONSTRAINT pk_usuarios PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE Usuarios (
+    id INT(8) AUTO_INCREMENT NOT NULL,
+    login VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, 
+    rol TINYINT(1) NOT NULL CHECK (rol IN (0,1)), 
+    CONSTRAINT pk_usuarios PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO Usuarios (login, password, rol) VALUES
+('admin', '$2y$10$gF5.GPZHVDjLKR1LPP6PjOH0UKnzKUGttenp2teu74jVwEqW.dkaW', 1), -- Contraseña: admin123
+('usuario', '$2y$10$kQxdDHqdmxSp2RMnDHWqQutSgf.92upHYF7priOvlpiSYh67L7.4O', 0); -- Contraseña: usuario
+
 
 insert into Clientes (id, first_name, last_name, email, gender, ip_address, telefono) values (1, 'Cletis', 'Desporte', 'cdesporte0@ucla.edu', 'Male', '205.183.245.97', '317-116-9163');
 insert into Clientes (id, first_name, last_name, email, gender, ip_address, telefono) values (2, 'Vasili', 'McCuthais', 'vmccuthais1@hugedomains.com', 'Male', '121.41.29.60', '154-655-1829');

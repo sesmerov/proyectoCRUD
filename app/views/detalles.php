@@ -45,11 +45,13 @@
                                     <td>
                                         <div class="input-group">
                                             <input type="text" class="form-control" name="ip_address" value="<?= $cli->ip_address ?>" readonly>
-                                            <span class="input-group-text p-0">
-                                                <img src="https://flagcdn.com/16x12/<?= $datosPaisProcesados['codigoPais'] ?>.png" 
-                                                     alt="Bandera <?= $datosPaisProcesados['nombrePais'] ?>" 
-                                                     style="width: 24px; height: 16px;">
-                                            </span>
+                                            <?php if (!empty($datosPaisProcesados['codigoPais']) && $datosPaisProcesados['codigoPais'] !== 'default'): ?>
+                                                <span class="input-group-text p-0">
+                                                    <img src="https://flagcdn.com/16x12/<?= $datosPaisProcesados['codigoPais'] ?>.png" 
+                                                         alt="Bandera <?= $datosPaisProcesados['nombrePais'] ?>" 
+                                                         style="width: 24px; height: 16px;">
+                                                </span>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>
