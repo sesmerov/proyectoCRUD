@@ -187,14 +187,9 @@ function crudUsuario($login, $password){
         return false;
     }
 
-    error_log("Contraseña proporcionada: $password"); // Depuración
-    error_log("Contraseña almacenada: " . $usuario['password']); // Depuración
-
     if (password_verify($password, $usuario['password'])) {
-        error_log("Contraseña correcta para el usuario: $login"); // Depuración
         return $usuario['rol'];
     } else {
-        error_log("Contraseña incorrecta para el usuario: $login"); // Depuración
         return false;
     }
 }

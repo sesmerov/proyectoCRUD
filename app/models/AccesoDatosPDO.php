@@ -210,7 +210,6 @@ public function getClientes($primero, $cuantos, $orden = 'id'): array {
         $stmt_user->execute();
         if ( $stmt_user->execute() ){
              if ( $obj = $stmt_user->fetch()){
-                error_log("Usuario encontrado: " . print_r($obj, true)); // Depuración
                 $user= $obj;
             }
         }

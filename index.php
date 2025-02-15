@@ -1,8 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', 1); // Muestra errores en pantalla
-ini_set('display_startup_errors', 1); // Muestra errores de inicio
-error_reporting(E_ALL); // Reporta todos los errores
 define ('FPAG',10); // Número de filas por página
 
 
@@ -19,7 +16,7 @@ if (!isset($_SESSION['intentos'])) {
 }
 
 if ($_SESSION['intentos']>= 3) {
-    $msg = "Intentos de inicio de sesiñon superados. Reinica el navegador";
+    $msg = "Intentos de inicio de sesion superados. Reinicia el navegador";
     require_once "app/views/login.php"; 
     exit();
 }
